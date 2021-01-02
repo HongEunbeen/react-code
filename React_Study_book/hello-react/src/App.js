@@ -1,19 +1,39 @@
 import React, {Component} from 'react';
 import './App.css';
+
 //import MyComponent from './MyComponent';
 //import Counter from './Counter';
 //import Say from './Say';
 //import EventPracties from './EventPractice';
 //import ValidationSample from './ValidationSample';
 //import ScrollBox from './ScrollBox.js'
-import IterationSample from './IterationSample.js'
+//import IterationSample from './IterationSample.js'
+import LifeCycleSample from './LifeCycleSample.js';
+import ErrorBoundary from './ErrorBoundary.js';
 
+function getRandomColor(){
+  return'#' + Math.floor(Math.random() * 16777215).toString(16);
+  //state의 color 값을 랜덤 색상으로 설정 > hex로 표현 000000 ~ ffffff
+}
 
 class App extends Component {
+  state = {
+    color : '#000000'
+  }
+  
+  handleClick = () => {
+    this.setState({
+      color : getRandomColor()
+    });
+  }
+
   render(){
     return(
       <div>
-        <IterationSample/>
+        <button onClick={this.handleClick}>랜덤 색상</button>
+        <ErrorBoundary>
+          <LifeCycleSample color={this.state.color}/>
+        </ErrorBoundary>
       </div>
     );
   }
@@ -26,6 +46,7 @@ class App extends Component {
 //   //return <Say />;
 //   //return <EventPracties />;
 //   return <ValidationSample/>;
+//    return <div><IterationSmaple/></div>
 // };
 
 
