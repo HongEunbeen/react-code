@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import {Link, Route} from 'react-router-dom';
+import { Link , Route, Switch, Swtich } from 'react-router-dom';
 import About from './About.js';
 import Home from './Home.js';
-import Profile from './Profile';
+import Profiles from './Profiles';
+import HistorySample from './HistorySample';
 
-function App() {
+const App = () => {
   return (
     <div>
       <ul>
@@ -16,17 +17,28 @@ function App() {
           <Link to="/about">소개</Link>
         </li>
         <li>
-          <Link to="/profile/velopert">velopert 프로필</Link>
+          <Link to="/profiles">프로필</Link>
         </li>
         <li>
-          <Link to="/profile/gildong">gildong 프로필</Link>
+          <Link to="/history">History 예제</Link>
         </li>
       </ul>
       <hr/>
-      <Route path="/" component={Home} exact={true}/>{/*exact props 이유는 /about 규칙에 / 규칙도 포함되기 때문*/} 
-      <Route path={['/info', "/about"]} component={About}/>
-      <Route path='/profile/:username' component={Profile}/>
-      {/*이렇게 설정하면 match.params.username 값을 통해 username 값 조회 가능*/}
+      <Switch>
+        <Route path="/" component={Home} exact={true}/>{/*exact props 이유는 /about 규칙에 / 규칙도 포함되기 때문*/} 
+        <Route path={['/info', "/about"]} component={About}/>
+        <Route path='/profiles' component={Profiles}/>
+        <Route path="/history" component={HistorySample}/>
+        <Route 
+          render={({location}) => (
+            <div>
+              <h2>이 페이지는 존재하지 않습니다:</h2>
+              <p>{location.pathname}</p>
+            </div>
+          )}
+        />
+        {/*Not Found page */}
+      </Switch>
     </div>
   );
 }

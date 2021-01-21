@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import WithRouterSample from './WithRouterSample';
 
 const data = {
     velopert : {
@@ -12,6 +14,7 @@ const data = {
 };
 //라우트로 사용되는 컴포넌트에서 받아오는 match라는 객체 안의 params 값 참조
 const Profile = ({match}) => {{/*match 객체 안 > 현재 컴포넌트가 어떤 경로 규칙에 의해 보이는지에 대한 정보*/}
+    
     const {username} =match.params;
     const profile = data[username];
     if(!profile){
@@ -24,6 +27,8 @@ const Profile = ({match}) => {{/*match 객체 안 > 현재 컴포넌트가 어�
                 {username} ({profile.name})
             </h3>
             <p>{profile.description}</p>
+            <WithRouterSample />
+            {/*match 객체의 params 값이 나온다. */}
         </div>
     );
 };
