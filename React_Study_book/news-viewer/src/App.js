@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import axios from 'axios';
-import NewsList from './components/NewsList';
+import React from 'react';
+import {Route} from 'react-router-dom';
+import NewsPage from './pages/NewPage';
 
 const App = () => {
-  
   return (
-    <NewsList/>
+   <Route paht="/:category?" component={NewsPage} />
   );
 };
 

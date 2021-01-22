@@ -20,16 +20,22 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const NewList = () => {
+const NewsList = ({category}) => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  //category의 값이 변경될 때마다 뉴스를 새로 불러와야 하기 때문에 useEffect의 의존 배열에 category 추가
+  //특정 값이 업데이트 될 때만 실행
+  //API를 컴포넌트가 맨 처음 렌더링될 떄, 그리고 category 값이 바뀔 때 요청하도록 설정
+  //클래스형 컴포넌트로 만들게 된다면 > componentDidMount와 componentDidUpdate 사용
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try{
+        const query = category === 'all' ? '' : `&category=${category}`;
         const response = await axios.get(
-          'https://newsapi.org/v2/top-headlines?country=kr&apiKey=2e756a921492466584495df8604c71aa'
+          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=2e756a921492466584495df8604c71aa`
         );
 
         setArticles(response.data.articles);
@@ -40,7 +46,7 @@ const NewList = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [category]);
 
   if(loading){
     return <NewsListBlock>대기중.....</NewsListBlock>
@@ -61,4 +67,4 @@ const NewList = () => {
   );
 };
 
-export default NewList;
+export default NewsList;
