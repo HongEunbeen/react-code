@@ -48,7 +48,7 @@ const NewsList = ({category}) => {
   }
 
   const {articles} = response.data;
-
+//articles 
   return (
       <NewsListBlock>
         {articles.map(article => (
