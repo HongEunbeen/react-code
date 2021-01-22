@@ -20,13 +20,6 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const sampleArticle = {
-    title : "제목",
-    description : "내용",
-    url : "https://google.com",
-    urlToImage : "https://via.placeholder.com/160"
-};
-
 const NewList = () => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -36,8 +29,11 @@ const NewList = () => {
       setLoading(true);
       try{
         const response = await axios.get(
-          'https://newsapi.org/v2/top_headlines?country=kr&apiKey=2e756a921492466584495df8604c71aa'
+          'https://newsapi.org/v2/top-headlines?country=kr&apiKey=2e756a921492466584495df8604c71aa'
         );
+
+        setArticles(response.data.articles);
+
       }catch(e){
         console.log(e);
       }
@@ -49,19 +45,18 @@ const NewList = () => {
   if(loading){
     return <NewsListBlock>대기중.....</NewsListBlock>
   }
+
+  //articles를 불러와 map 함수를 쓰기 전 꼭 null 체크 해주기 
+  //map 함수가 없기 때문에 렌더링 과정에서 오류가 난다.
   if(!articles){
     return null;
   }
 
   return (
       <NewsListBlock>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
-          <NewsItem article={sampleArticle}/>
+        {articles.map(article => (
+          <NewsItem key={article.url} article={article}/>
+        ))}
       </NewsListBlock>
   );
 };
