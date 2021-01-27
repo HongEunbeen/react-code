@@ -1,16 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import ColorBox from './components/ColorBox';
-import ColorContext from './contexts/color';
+import {ColorProvider} from './contexts/color';
+import SelectColor from './components/SelectColor';
 
 function App() {
   return (
-    <ColorContext.Provider value={{color : 'red'}}>
-  {/*<ColorContext.Provider> 이렇게 하면 오류 발생*/}
+    <ColorProvider>
       <div>
-      <ColorBox />
+        <SelectColor/>
+        <ColorBox />
       </div>
-    </ColorContext.Provider>
+    </ColorProvider>
   );
 }
 
