@@ -2,13 +2,14 @@ import logo from './logo.svg';
 import './App.css';
 import Counter from './component/Counter';
 import Todos from './component/Todos';
+import CounterContainer from './containers/CounterContainer';
 
 function App() {
   return (
     <div className="App">
-      <Counter number={0}/>
-      <hr />
-      <Todos />
+      <CounterContainer/>
+      <hr/>
+      <Todos/>
     </div>
   );
 }
