@@ -9,20 +9,17 @@ const CounterContainer = ({number, increase, decrease}) => {
    );
 };
 
-const mapStateToProps = state => ({
-    number : state.counter.number
-});
-
-const mapDispatchToProps = dispatch => ({
-    increase : () => {
-        dispatch(increase());
-    },
-    decrease : () => {
-        dispatch(decrease());
-    },
-});
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    state => ({
+        number : state.counter.number
+    }),
+    dispatch => ({
+        //리덕스 제공하는 bindActionCreators 유틸 함수 사용
+        increase : () => {
+            dispatch(increase());
+        },
+        decrease : () => {
+            dispatch(decrease());
+        },
+    })
 )(CounterContainer);
