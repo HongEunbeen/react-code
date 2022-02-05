@@ -18,11 +18,26 @@ const Text = styled.span`
   color:white;
 `;
 
+const Btn = styled.button`
+  color:white;
+  background-color:tomato;
+  border:0;
+  border-radius:15px
+`;
+
+const Input = styled.input.attrs({requried : true})`
+  background-color:toamto
+`;
+
 function App() {
   return (
     <Father>
-      <Box bgColor="teal" />
-      <Circle bgColor="tomato" />
+      <Btn>Log in</Btn>
+      <Btn as="Link" href="/">Log in</Btn>
+      <Input />
+      <Input />
+      <Input />
+      <Input />
     </Father>
   );
 }
