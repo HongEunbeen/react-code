@@ -40,26 +40,27 @@ const Emoji = styled.span`
 const Box = styled.div`
   width:200px; 
   height:200px; 
-  background-color:tomato;
+  background-color:${(props) => props.theme.backgroundColor};
   display:flex;
   align-items:center;
   justify-content:center;
   animation:${animation} 1s linear infinite;
-  &:hover{
-    background-color:black;
-  }
   ${Emoji}:hover{
       font-size:98px;
     }
   }
 `;
 
+const Title = styled.h1`
+  color: ${(props) => props.theme.textColor}
+`;
 
 function App() {
   return (
     <>
       <Box>
         <Emoji as="p">😍</Emoji>
+        <Title>안녕</Title>
       </Box>
     </>
   );
