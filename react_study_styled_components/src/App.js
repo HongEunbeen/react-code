@@ -33,6 +33,10 @@ const animation = keyframes`
   }
 `;
 
+const Emoji = styled.span`
+  font-size:36px;
+`;
+
 const Box = styled.div`
   width:200px; 
   height:200px; 
@@ -44,19 +48,18 @@ const Box = styled.div`
   &:hover{
     background-color:black;
   }
-  span{
-    font-size:36px;
-    &:hover{
-      font-size:40px;
+  ${Emoji}:hover{
+      font-size:98px;
     }
   }
 `;
+
 
 function App() {
   return (
     <>
       <Box>
-        <span>😍</span>
+        <Emoji as="p">😍</Emoji>
       </Box>
     </>
   );
