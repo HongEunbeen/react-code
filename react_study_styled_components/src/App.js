@@ -41,6 +41,9 @@ const Box = styled.div`
   align-items:center;
   justify-content:center;
   animation:${animation} 1s linear infinite;
+  &:hover{
+    background-color:black;
+  }
   span{
     font-size:36px;
     &:hover{
