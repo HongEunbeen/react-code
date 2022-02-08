@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Outlet, Route , Routes, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Outlet, Route , Routes, useLocation, useParams, useMatch} from "react-router-dom";
 import styled from 'styled-components';
 import Chart from "./Chart";
 import { ICoin } from "./Coins";
@@ -48,6 +49,30 @@ const OverviewItem = styled.div`
 const Description = styled.p`
   margin: 20px 0px;
 `;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
+`;
+
+
 
 interface IRouteParams {
     coinId:string;
@@ -111,12 +136,13 @@ interface IPriceData {
 
 function Coin() {
     const {coinId} = useParams() as unknown as IRouteParams;
-    const local = useLocation();
-    const {name} = local.state === null ? {name:null} : local.state as IRouteStat;
+    const {name} = useLocation().state as IRouteStat;
 
     const [loading, setLoding] = useState(true);
     const [info, setInfo] = useState<IInfoData>();
     const [priceInfo, setPriceInfo] = useState<IPriceData>();
+    const priceMatch = useMatch("/:coinId/price");
+    const chartMatch = useMatch("/:coinId/chart");
 
     useEffect(() => {
         (async() => {
@@ -167,6 +193,18 @@ function Coin() {
                     <span>{priceInfo?.max_supply}</span>
                 </OverviewItem>
             </Overview>
+            <Tabs>
+                <Tab isActive={chartMatch !== null}>
+                    <Link to={`/${coinId}/chart`} state={{name:name}}>
+                        Chart
+                    </Link>
+                </Tab>
+                <Tab isActive={priceMatch !== null}>
+                    <Link to={`/${coinId}/price`} state={{name:name}}>
+                        Price
+                    </Link>
+                </Tab>
+            </Tabs>
             <Outlet />
             </>
             }
