@@ -1,22 +1,69 @@
 import React, { useState } from "react";
-import styled, {keyframes} from "styled-components"
+import styled, {createGlobalStyle, keyframes} from "styled-components"
 import Circle from "./Circle";
+import Router from "./Router";
+import { theme } from "./theme";
 
-const Contianer = styled.div`
-  background-color: ${(props) => props.theme.bgColor};
+const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+*{
+  box-sizing = border-box;
+}
+a{
+  text-decoration:none;
+}
+body {
+	line-height: 1;
+  background-color:${(props) => props.theme.bgColor};
+  color:${(props) => props.theme.textColor};
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 `;
 
-const H1 = styled.h1`
-  color : ${(props) => props.theme.textColor};
-`
-
 function App() {
-
-  return (
-   <Contianer>
-     <H1>protected</H1>
-   </Contianer>
-  );
+  return <>
+   <GlobalStyle/>
+   <Router />
+  </>;
 }
 
 export default App;
