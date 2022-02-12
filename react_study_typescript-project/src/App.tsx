@@ -3,6 +3,7 @@ import styled, {createGlobalStyle, keyframes} from "styled-components"
 import Circle from "./Circle";
 import Router from "./Router";
 import { theme } from "./theme";
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
@@ -64,6 +65,7 @@ function App() {
   return <>
    <GlobalStyle/>
    <Router />
+   <ReactQueryDevtools initialIsOpen={true} />
   </>;
 }
 
