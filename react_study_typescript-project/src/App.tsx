@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import styled, {createGlobalStyle, keyframes} from "styled-components"
+import styled, {createGlobalStyle, keyframes, ThemeProvider} from "styled-components"
 import Circle from "./Circle";
 import Router from "./Router";
-import { theme } from "./theme";
+import { darktheme, lighttheme } from "./theme";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
@@ -62,10 +64,14 @@ table {
 `;
 
 function App() {
+
+  const isDark = useRecoilValue(isDarkAtom)
   return <>
-   <GlobalStyle/>
-   <Router />
-   <ReactQueryDevtools initialIsOpen={true} />
+  <ThemeProvider theme={isDark ? darktheme : lighttheme}>
+	<GlobalStyle/>
+	<Router />
+	<ReactQueryDevtools initialIsOpen={true} />
+   </ThemeProvider>
   </>;
 }
 

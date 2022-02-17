@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { isDarkAtom } from "../atoms";
 
 
 const Container = styled.div`
@@ -29,7 +32,7 @@ const CoinList = styled.ul`
 
 const Coin = styled.li`
     background-color: white;
-    color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.textColor};
     margin-bottom:10px;
     padding:20px;
     border-radius : 15px;
@@ -70,10 +73,13 @@ export interface ICoin {
 function Coins() {
     //reqct-query는 데이터를 유지하고 있음(캐시에 저장해 놓음)
     const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoins);
+    const setDarkAtom = useSetRecoilState(isDarkAtom);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
     return (
         <Container>
             <Header>
                 <Title>코딩</Title>
+                <button onClick={toggleDarkAtom}>Toggle Mode</button>
             </Header>
             {isLoading ? 
             <Loader>로딩로딩</Loader>

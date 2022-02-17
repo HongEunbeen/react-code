@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { Outlet, Route , Routes, useLocation, useParams, useMatch} from "react-router-dom";
+import { Outlet, useLocation, useParams, useMatch} from "react-router-dom";
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-import Chart from "./Chart";
-import { ICoin } from "./Coins";
-import Price from "./Price";
+import {Helmet} from 'react-helmet-async';
+
 
 const Container = styled.div`
     padding:0px 20px;
@@ -142,7 +140,12 @@ function Coin() {
     const priceMatch = useMatch("/:coinId/price");
     const chartMatch = useMatch("/:coinId/chart");
 
-    const {isLoading: infoLoading, data: infoData} = useQuery<IInfoData>(["info",coinId], () => fetchCoinInfo(coinId));
+    const {isLoading: infoLoading, data: infoData} = useQuery<IInfoData>([
+        "info",coinId],
+        () => fetchCoinInfo(coinId),
+        {
+            refetchInterval : 5000
+        });
     const {isLoading: tickersLoading, data: tickersData} = useQuery<IPriceData>(["tickers",coinId], () => fetchCoinTickers(coinId));
 
     return(
@@ -164,8 +167,8 @@ function Coin() {
                     <span>${infoData?.symbol}</span>
                 </OverviewItem>
                 <OverviewItem>
-                    <span>Open Source:</span>
-                    <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                    <span>Price:</span>
+                    <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
                 </OverviewItem>
             </Overview>
             <Description>{infoData?.description}</Description>
